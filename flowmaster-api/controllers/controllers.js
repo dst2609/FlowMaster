@@ -20,7 +20,7 @@ async function handleChat(req, res) {
         messages: [
           {
             role: "system",
-            content: "You are a helpful assistant designed to output JSON.",
+            content: "You are a helpful assistant expert in agile methodology.",
           },
           {
             role: "user",
