@@ -1,0 +1,20 @@
+.app-container {
+    display: flex;
+    width: 100%; 
+    min-height: 100vh; 
+  }
+  
+  .chat-wrapper {
+    width: 50%; 
+    min-height: 700px;
+    border-right: 1px solid #ccc; 
+    padding: 20px;
+  }
+  
+  .task-details-wrapper {
+    width: 50%; 
+    padding: 20px;
+    overflow-y: auto; 
+    min-height: 700px;
+  }
+  
