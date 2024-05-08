@@ -1,0 +1,53 @@
+.overview-content {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .recent-projects, .your-work, .plot{
+    flex: 1;
+    margin: 0 10px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  }
+  
+  .recent-projects h2, .your-work h2, .plot h2 {
+    margin-top: 0;
+  }
+  
+  .recent-projects ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .recent-projects li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .recent-projects li:last-child {
+    border-bottom: none;
+  }
+  
+  .task-summary {
+    margin-bottom: 20px;
+  }
+  
+  .analysis-plot h3 {
+    margin-top: 0;
+  }
+  
+  .pie-chart-placeholder {
+    width: 200px;
+    height: 200px;
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    margin: auto;
+  }
+  

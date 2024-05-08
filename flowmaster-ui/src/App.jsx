@@ -1,14 +1,13 @@
 import { useState } from "react";
-
 import "./App.css";
-import ChatUI from "./Components/ChatUI/ChatUI";
+import Overview from "./Components/Overview/Overview";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <ChatUI />
+      <Overview/>
     </>
   );
 }

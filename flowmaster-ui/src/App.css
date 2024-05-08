@@ -1,0 +1,7 @@
+.active {
+    color: red; /* Example: Red color for active tab */
+  }
+  .inactive {
+    color: black; /* Inactive tabs remain black */
+  }
+  

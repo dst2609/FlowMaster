@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./ChatUI.css";
 
-const ChatUI = () => {
+const ChatUI = ({children}) => {
   const [message, setMessage] = useState("");
   const [response, setResponse] = useState("");
 
@@ -27,13 +27,13 @@ const ChatUI = () => {
 
   return (
     <div className="chat-wrapper">
-      <header className="chat-header">FlowMaster basic chat ui</header>
+      <header className="chat-header">FlowMaster Chat</header>
       <div className="chat-body">
         <input
           type="text"
           value={message}
           onChange={handleMessageChange}
-          placeholder="Message"
+          placeholder="Give me your task details, I shall auto generate tickets..."
           className="chat-input"
         />
         <div className="chat-buttons">
@@ -46,6 +46,7 @@ const ChatUI = () => {
         </div>
         <div className="chat-response">{response}</div>
       </div>
+      {children}
     </div>
   );
 };
