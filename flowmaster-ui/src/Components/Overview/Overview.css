@@ -35,3 +35,12 @@ header nav ul li .active {
 .inactive {
   color: black; /* Inactive tabs remain black */
 }
+
+/* Overview.css */
+.login-registration {
+  text-align: center; /* Centers the text of the button */
+}
+
+.center-button {
+  margin-top: 20px; /* Adds some space above the button */
+}

@@ -9,3 +9,26 @@
   margin: 0 auto;
   padding: 20px;
 }
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+  font-family: Arial, sans-serif; /* Set default font */
+}
+
+body {
+  padding-top: 70px; /* Adjust based on your header's height */
+  margin: 0;
+  font-family: Arial, sans-serif; /* This keeps the rest of your styles intact */
+}
+
+.main-content {
+  padding-top: 30px; /* Adjust this value as needed */
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 50px; /* Adjusted for smaller screens if the header padding/font changes */
+  }
+}
