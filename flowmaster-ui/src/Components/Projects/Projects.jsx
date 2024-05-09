@@ -1,8 +1,9 @@
 import { NavLink } from 'react-router-dom';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import "./Projects.css";
 import Column from "./Column";
+import axios from 'axios';
 
 const Projects = () => {
     const scrollToSprintBoard = () => {
@@ -12,52 +13,52 @@ const Projects = () => {
         }
     };
 
-    const [completed, setCompleted] = useState([
-        { id: "1", title: 'Task 1', completed: true },
-        { id: "2", title: 'Task 2', completed: true },
-        { id: "3", title: 'Task 3', completed: true }
-    ]);
-    const [inProgress, setInProgress] = useState([
-        { id: "4", title: 'Task 4', completed: false },
-        { id: "5", title: 'Task 5', completed: false },
-        { id: "6", title: 'Task 6', completed: false }
-    ]);
-    const [inTest, setIntest] = useState([
-        { id: "7", title: 'Task 7', completed: false },
-        { id: "8", title: 'Task 8', completed: false },
-        { id: "9", title: 'Task 9', completed: false }
-    ]);
-    const [todo, setToDo] = useState([
-        { id: "10", title: 'Task 10', completed: false },
-        { id: "11", title: 'Task 11', completed: false },
-        { id: "12", title: 'Task 12', completed: false }
-    ]);
+    const [completed, setCompleted] = useState([]);
+    const [inProgress, setInProgress] = useState([]);
+    const [inTest, setIntest] = useState([]);
+    const [todo, setToDo] = useState([]);
 
+    const [tasks, setTasks] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get("http://localhost:3000/tasks");
+                const tasksData = JSON.parse(response.data[1].description).tasks;
+                setTasks(tasksData);
+                setToDo(tasksData.filter(task => task.status == "To Do"));
+            } catch (error) {
+                console.error("Error fetching tasks:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    
     const handleDragEnd = (result) => {
         const { destination, source, draggableId } = result;
-
-        if (!destination || source.droppableId === destination.droppableId) return;
+        if (!destination || source.droppableId === destination.droppableId) {
+            return;}
 
         deletePreviousState(source.droppableId, draggableId);
-
-        const task = findItemById(draggableId, [...inProgress, ...completed, ...todo, ...inTest]);
-
+        const task = findItemById(draggableId, [...todo, ...inProgress, ...completed, ...inTest]);
         setNewState(destination.droppableId, task);
     };
 
     function deletePreviousState(sourceDroppableId, taskId) {
         switch (sourceDroppableId) {
             case "1":
-                setInProgress(removeItemById(taskId, inProgress));
+                setToDo(removeItemById(taskId, todo));    
                 break;
             case "2":
-                setCompleted(removeItemById(taskId, completed));
+                setInProgress(removeItemById(taskId, inProgress));
                 break;
             case "3":
-                setToDo(removeItemById(taskId, todo));
+                setIntest(removeItemById(taskId, inTest));
                 break;
             case "4":
-                setIntest(removeItemById(taskId, inTest));
+                setCompleted(removeItemById(taskId, completed));
                 break;
         }
     }
@@ -66,42 +67,50 @@ const Projects = () => {
         let updatedTask;
         switch (destinationDroppableId) {
             case "1":   // TO DO
-                updatedTask = { ...task, completed: false };
-                setInProgress([...inProgress, updatedTask]);
-                break;
-            case "2":  // In Progress
-                updatedTask = { ...task, completed: true };
-                setCompleted([...completed, updatedTask]);
-                break;
-            case "3":  // IN Test
-                updatedTask = { ...task, completed: false };
+                updatedTask = { ...task };  // Update status to "To Do"
+                updatedTask.status = "To Do"
                 setToDo([...todo, updatedTask]);
                 break;
-            case "4":  // Done
-                updatedTask = { ...task, completed: false };
+            case "2":  // In Progress
+                updatedTask = { ...task };  // Update status to "In Progress"
+                updatedTask.status = "In Progress"
+                setInProgress([...inProgress, updatedTask]);
+                console.log("inProgress: ", ...inProgress)
+                break;
+            case "3":  // IN Test
+                updatedTask = { ...task};  // Update status to "In Test"
+                updatedTask.status = "In Test"
                 setIntest([...inTest, updatedTask]);
+                break;
+            case "4":  // Done
+                updatedTask = { ...task};  // Update status to "Done"
+                updatedTask.status = "Done"
+                setCompleted([...completed, updatedTask]);
                 break;
         }
     }
 
     function findItemById(id, array) {
-        return array.find((item) => item.id === id);
+          const foundItem = array.find((item) => {
+            return item.id == id;
+        });
+        return foundItem;
     }
 
     function removeItemById(id, array) {
-        return array.filter((item) => item.id !== id);
+        return array.filter((item) => item.id != id);
     }
 
     return (
         <div className="app">
-            <div className="sidebar">
+            {/* <div className="sidebar">
                 <nav>
                     <ul>
                         <li><NavLink to="/projects" className="nav-link">Summary</NavLink></li>
                         <li><NavLink onClick={scrollToSprintBoard} className="nav-link">Sprint Board</NavLink></li>
                     </ul>
                 </nav>
-            </div>
+            </div> */}
             <div className="content">
                 <h1 id="sprint-board"></h1>
                 <DragDropContext onDragEnd={handleDragEnd}>
@@ -117,10 +126,10 @@ const Projects = () => {
                             color: "#ffffff"
                         }}
                     >
-                        <Column title={"To Do"} tasks={inProgress} id={"1"} />
-                        <Column title={"In Progress"} tasks={completed} id={"2"} />
-                        <Column title={"In Test"} tasks={todo} id={"3"} />
-                        <Column title={"Done"} tasks={inTest} id={"4"} />
+                        <Column title={"To Do"} tasks={todo} id={"1"} />
+                        <Column title={"In Progress"} tasks={inProgress} id={"2"} />
+                        <Column title={"In Test"} tasks={inTest} id={"3"} />
+                        <Column title={"Done"} tasks={completed} id={"4"} />
                     </div>
                 </DragDropContext>
             </div>

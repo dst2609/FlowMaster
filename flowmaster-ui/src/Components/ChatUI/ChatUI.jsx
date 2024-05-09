@@ -19,6 +19,11 @@ const ChatUI = ({children}) => {
 
       setResponse(result.data.message);
       // console.log(result.data.message);
+      await axios.post("http://localhost:3000/tasks/add", {
+      title: "Generated Task", // You can customize the title as needed
+      description: result.data.message, // Use the ChatGPT response as the task description
+    });
+
     } catch (error) {
       console.error("Error sending message:", error);
       setResponse("Failed to get response");
