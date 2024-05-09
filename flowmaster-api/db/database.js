@@ -7,6 +7,7 @@ const mongoURI = process.env.MONGO_URI;
 
 let db;
 let usersCollection;
+let taskCollection;
 
 async function connectToDB() {
   try {
@@ -36,12 +37,35 @@ async function createUsersCollection() {
   }
 }
 
+async function createTasksCollection() {
+  try {
+    taskCollection = db.collection("tasks");
+    const collections = await db.listCollections().toArray();
+    const collectionExists = collections.some(
+      (collection) => collection.name === "tasks"
+    );
+    if (!collectionExists) {
+      await taskCollection.createIndex({ title: "text" }); // Optional: Create an index for text search
+      console.log("taskCollection collection created");
+    }
+  } catch (err) {
+    console.error("Failed to create taskCollection :", err);
+    process.exit(1);
+  }
+}
+
 function getUsersCollection() {
   return usersCollection;
+}
+
+function getTasksCollection() {
+  return taskCollection;
 }
 
 module.exports = {
   connectToDB,
   createUsersCollection,
+  createTasksCollection,
   getUsersCollection,
+  getTasksCollection,
 };

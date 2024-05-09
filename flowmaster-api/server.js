@@ -6,7 +6,11 @@ const routes = require("./routes/routes");
 const { setupSecurity } = require("./security/security");
 
 //user routers and db connection:
-const { connectToDB, createUsersCollection } = require("./db/database.js");
+const {
+  connectToDB,
+  createUsersCollection,
+  createTasksCollection,
+} = require("./db/database.js");
 
 const app = express();
 
@@ -39,11 +43,14 @@ routes(app);
 connectToDB().then(() => {
   //Create users collection
   createUsersCollection();
-  // Create menuItems collection
+  // Create tasks collection
+  createTasksCollection();
 
   // Routes
   const userRoutes = require("./routes/userRoutes");
   app.use("/users", userRoutes);
+  const taskRoutes = require("./routes/taskRoutes");
+  app.use("/tasks", taskRoutes);
 
   // Start the server
   app.listen(3000, () => {
