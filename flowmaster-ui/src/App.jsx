@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <Overview/>
+      <Overview />
     </>
   );
 }

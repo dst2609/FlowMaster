@@ -83,7 +83,7 @@ const userController = {
 
       // If no user with that email found
       if (!user) {
-        return res.status(400).json({ error: "Invalid email or password" });
+        return res.status(400).json({ error: "User not found" });
       }
 
       const validPassword = await bcrypt.compare(
@@ -93,11 +93,14 @@ const userController = {
 
       // If password doesn't match
       if (!validPassword) {
-        return res.status(400).json({ error: "Invalid email or password" });
+        return res.status(400).json({ error: "Invalid password" });
       }
 
       // Sign a JWT token
-      const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+      const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "1h",
+      });
+      console.log("token is : ", token);
 
       // Respond with the token
       res.status(200).json({ token, message: "Logged in successfully" });
