@@ -1,0 +1,65 @@
+/* Sidebar.css */
+.sidebar {
+    width: 250px;
+    height: 100vh; /* Adjust as needed */
+    background-color:#f0f0f0;
+    padding: 20px;
+    display: flex;
+    margin: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: larger;
+    display: flex;
+  }
+  
+  li .active {
+    color: #000e53;
+    /* background-color: #c8c8c8; */
+    display: flex;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn {
+    color: #000e53;
+    /* background-color: #c8c8c8; */
+    display: flex;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .task-container {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .task-columns {
+    display: flex;
+    flex: 1;
+  }
+  
+  .task-card {
+    width: 200px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: grab;
+  }
+  
+  .task-card:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .task-card:active {
+    cursor: grabbing;
+  }
