@@ -1,6 +1,9 @@
 import React from 'react';
 import './OverviewContent.css'; 
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const data = {
   labels: ['Task 1', 'Task 2', 'Task 3'],
@@ -8,10 +11,12 @@ const data = {
     {
       data: [300, 50, 100],
       backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-      hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+      hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+      borderWidth: 1,
     }
   ]
 };
+
 
 const OverviewContent = () => {
   return (
@@ -35,9 +40,10 @@ const OverviewContent = () => {
       <div className="plot">
         <div className="analysis-plot">
           <h3>Pie Chart of Status Overview</h3>
-          <div className="pie-chart-placeholder">
+          <div style={{ height: '300px', width: '300px' }}>
             <Pie data={data} />
-          </div>          
+          </div>
+                   
         </div>
       </div>
     </div>
