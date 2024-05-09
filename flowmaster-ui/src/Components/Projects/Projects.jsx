@@ -24,8 +24,9 @@ const Projects = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get("http://localhost:3000/tasks");
-                console.log(JSON.parse(response.data[1].description).tasks);
-                setTasks(JSON.parse(response.data[1].description).tasks);
+                const tasksData = JSON.parse(response.data[1].description).tasks;
+                setTasks(tasksData);
+                setToDo(tasksData.filter(task => task.status == "To Do"));
             } catch (error) {
                 console.error("Error fetching tasks:", error);
             }
@@ -34,27 +35,24 @@ const Projects = () => {
         fetchData();
     }, []);
 
+    
     const handleDragEnd = (result) => {
         const { destination, source, draggableId } = result;
-
         if (!destination || source.droppableId === destination.droppableId) {
             return;}
 
-        deletePreviousState(source.droppableId, String(draggableId));
-        console.log("source id", source.droppableId);
-        const task = findItemById(String(draggableId), [...inProgress, ...completed, ...todo, ...inTest]);
-        console.log(String(draggableId));
+        deletePreviousState(source.droppableId, draggableId);
+        const task = findItemById(draggableId, [...todo, ...inProgress, ...completed, ...inTest]);
         setNewState(destination.droppableId, task);
     };
 
     function deletePreviousState(sourceDroppableId, taskId) {
         switch (sourceDroppableId) {
             case "1":
-                setToDo(removeItemById(taskId, todo));              
+                setToDo(removeItemById(taskId, todo));    
                 break;
             case "2":
                 setInProgress(removeItemById(taskId, inProgress));
-                
                 break;
             case "3":
                 setIntest(removeItemById(taskId, inTest));
@@ -69,42 +67,50 @@ const Projects = () => {
         let updatedTask;
         switch (destinationDroppableId) {
             case "1":   // TO DO
-                updatedTask = { ...task, status: "To Do" };  // Update status to "To Do"
+                updatedTask = { ...task };  // Update status to "To Do"
+                updatedTask.status = "To Do"
                 setToDo([...todo, updatedTask]);
                 break;
             case "2":  // In Progress
-                updatedTask = { ...task, status: "In Progress" };  // Update status to "In Progress"
+                updatedTask = { ...task };  // Update status to "In Progress"
+                updatedTask.status = "In Progress"
                 setInProgress([...inProgress, updatedTask]);
+                console.log("inProgress: ", ...inProgress)
                 break;
             case "3":  // IN Test
-                updatedTask = { ...task, status: "In Test" };  // Update status to "In Test"
+                updatedTask = { ...task};  // Update status to "In Test"
+                updatedTask.status = "In Test"
                 setIntest([...inTest, updatedTask]);
                 break;
             case "4":  // Done
-                updatedTask = { ...task, status: "Done" };  // Update status to "Done"
+                updatedTask = { ...task};  // Update status to "Done"
+                updatedTask.status = "Done"
                 setCompleted([...completed, updatedTask]);
                 break;
         }
     }
 
     function findItemById(id, array) {
-        return array.find((item) => item.id === id);
+          const foundItem = array.find((item) => {
+            return item.id == id;
+        });
+        return foundItem;
     }
 
     function removeItemById(id, array) {
-        return array.filter((item) => item.id !== id);
+        return array.filter((item) => item.id != id);
     }
 
     return (
         <div className="app">
-            <div className="sidebar">
+            {/* <div className="sidebar">
                 <nav>
                     <ul>
                         <li><NavLink to="/projects" className="nav-link">Summary</NavLink></li>
                         <li><NavLink onClick={scrollToSprintBoard} className="nav-link">Sprint Board</NavLink></li>
                     </ul>
                 </nav>
-            </div>
+            </div> */}
             <div className="content">
                 <h1 id="sprint-board"></h1>
                 <DragDropContext onDragEnd={handleDragEnd}>
@@ -120,10 +126,10 @@ const Projects = () => {
                             color: "#ffffff"
                         }}
                     >
-                        <Column title={"To Do"} tasks={tasks.filter(task => task.status === "To Do")} id={"1"} />
-                        <Column title={"In Progress"} tasks={tasks.filter(task => task.status === "In Progress")} id={"2"} />
-                        <Column title={"In Test"} tasks={tasks.filter(task => task.status === "In Test")} id={"3"} />
-                        <Column title={"Done"} tasks={tasks.filter(task => task.status === "Done")} id={"4"} />
+                        <Column title={"To Do"} tasks={todo} id={"1"} />
+                        <Column title={"In Progress"} tasks={inProgress} id={"2"} />
+                        <Column title={"In Test"} tasks={inTest} id={"3"} />
+                        <Column title={"Done"} tasks={completed} id={"4"} />
                     </div>
                 </DragDropContext>
             </div>
