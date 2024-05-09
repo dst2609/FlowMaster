@@ -35,8 +35,9 @@ const OverviewContent = () => {
       <div className="plot">
         <div className="analysis-plot">
           <h3>Pie Chart of Status Overview</h3>
-          <div className="pie-chart-placeholder">Pie Chart Here</div>
-          
+          <div className="pie-chart-placeholder">
+            <Pie data={data} />
+          </div>          
         </div>
       </div>
     </div>
