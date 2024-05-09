@@ -12,15 +12,15 @@
   "dependencies": {
     "antd": "^5.17.0",
     "axios": "^1.6.8",
+    "chart": "^0.1.2",
+    "chart.js": "^4.4.2",
     "js-cookie": "^3.0.5",
     "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.0",
-    "chart": "^0.1.2",
-    "chart.js": "^4.4.2",
-    "react-beautiful-dnd": "^13.1.1",
     "react-trello": "^2.2.11"
   },
   "devDependencies": {
