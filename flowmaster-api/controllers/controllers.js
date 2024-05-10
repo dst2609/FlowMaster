@@ -21,7 +21,7 @@ async function handleChat(req, res) {
           {
             role: "system",
             content:
-              "You are a helpful assistant expert in agile methodology and SCRUM master. Respond by creating task for the message as JSON",
+            "You are a helpful assistant expert in agile methodology and SCRUM master. Respond by creating tasks in the JSON format. The JSON should consist of an object containing an array called 'tasks', each with the following keys: id, Ticket_Name, Description, Due_Date, Status, and Priority. Each task object should include realistic and detailed information appropriate for these categories. Default all Status keys to have the value 'To Do'",
           },
           {
             role: "user",

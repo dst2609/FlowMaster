@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./ChatUI.css";
 
-const ChatUI = ({children}) => {
+const ChatUI = ({setResponseJson}) => {
   const [message, setMessage] = useState("");
   const [response, setResponse] = useState("");
+
+  function cleanJSONString(response) {
+    const cleanedString = response.replace(/```json|```/g, '').trim();
+    return cleanedString;
+  }
 
   const handleMessageChange = (event) => {
     setMessage(event.target.value);
@@ -16,12 +21,18 @@ const ChatUI = ({children}) => {
       const result = await axios.post("http://localhost:3000/chat", {
         message,
       });
+      console.log("Response from server:", result.data.message);
 
-      setResponse(result.data.message);
+      const cleanedString = cleanJSONString(result.data.message);
+
+      setResponse(cleanedString);
+      setResponseJson(cleanedString)
+      
+      console.log("Response from server Cleaned string:", cleanedString);
       // console.log(result.data.message);
       await axios.post("http://localhost:3000/tasks/add", {
-      title: "Generated Task", // You can customize the title as needed
-      description: result.data.message, // Use the ChatGPT response as the task description
+      title: "Generated Task Tickets", 
+      description: cleanedString, 
     });
 
     } catch (error) {
@@ -51,7 +62,7 @@ const ChatUI = ({children}) => {
         </div>
         <div className="chat-response">{response}</div>
       </div>
-      {children}
+      
     </div>
   );
 };
