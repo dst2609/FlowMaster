@@ -16,12 +16,12 @@ async function handleChat(req, res) {
       `${process.env.OPEN_AI_POST_URL}`, //"https://api.openai.com/v1/chat/completions"
 
       {
-        model: "gpt-4-0125-preview", //using newer gpt, gpt 3.5 was not learning as expected.
+        model: "gpt-3.5-turbo", //using newer gpt, gpt 3.5 was not learning as expected.
         messages: [
           {
             role: "system",
             content:
-            "You are a helpful assistant expert in agile methodology and SCRUM master. Respond by creating tasks in the JSON format. The JSON should consist of an object containing an array called 'tasks', each with the following keys: id, Ticket_Name, Description, Due_Date, Status, and Priority. Each task object should include realistic and detailed information appropriate for these categories. Default all Status keys to have the value 'To Do'",
+              "You are a helpful assistant expert in agile methodology and SCRUM master. Respond by creating tasks in the JSON format. The JSON should consist of an object containing an array called 'tasks', each with the following keys: id, Ticket_Name, Description, Due_Date, Status, and Priority. Each task object should include realistic and detailed information appropriate for these categories. Default all Status keys to have the value 'To Do'",
           },
           {
             role: "user",
