@@ -20,13 +20,44 @@ const Projects = () => {
 
     const [tasks, setTasks] = useState([]);
 
+    const normalizeTaskData = (task) => {
+        return {
+            id: task.id ,  
+            title: task.title || task.Ticket_Name,
+            description: task.description || task.Description,
+            dueDate: task.dueDate || task.Due_Date,
+            status: task.status || task.Status,
+            priority: task.priority || task.Priority
+        };
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/tasks");
-                const tasksData = JSON.parse(response.data[1].description).tasks;
-                setTasks(tasksData);
-                setToDo(tasksData.filter(task => task.status == "To Do"));
+                const response = await axios.get("http://localhost:3000/tasks"); // for POST:  axios.post("http://localhost:3000/tasks/add");
+                console.log("Fetched data:", response.data); 
+
+                if (response.data && response.data.length > 0) {
+                    const latestTaskData = response.data[response.data.length - 1];
+                    const rawTasks = JSON.parse(latestTaskData.description).tasks;
+                    const tasks = rawTasks.map(normalizeTaskData);  
+                    console.log("Normalized tasks:", tasks); 
+
+                    setTasks(tasks);
+
+                    setToDo(tasks.filter(task => task.status === "To Do"));
+                    console.log("Filtered tasks:", tasks.filter(task => task.status === "To Do")); 
+                    // setInProgress(tasks.filter(task => task.status === "In Progress"));
+                    // setIntest(tasks.filter(task => task.status === "In Test"));
+                    // setCompleted(tasks.filter(task => task.status === "Done" || task.status === "ToDo"));
+                }
+                
+                // const tasksData = JSON.parse(response.data[1].description).tasks;
+                // console.log("Parsed tasks:", tasksData); 
+                // setTasks(tasksData);
+                // setToDo(tasksData.filter(task => task.status == "To Do"));
+                
+                
             } catch (error) {
                 console.error("Error fetching tasks:", error);
             }
