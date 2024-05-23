@@ -1,53 +1,121 @@
 .overview-content {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-  }
-  
-  .recent-projects, .your-work, .plot{
-    flex: 1;
-    margin: 0 10px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
 
-  }
-  
-  .recent-projects h2, .your-work h2, .plot h2 {
-    margin-top: 0;
-  }
-  
-  .recent-projects ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .recent-projects li {
-    padding: 10px 0;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  .recent-projects li:last-child {
-    border-bottom: none;
-  }
-  
-  .task-summary {
-    margin-bottom: 20px;
-  }
-  
-  .analysis-plot h3 {
-    margin-top: 0;
-  }
-  
-  .pie-chart-placeholder {
-    width: 200px;
-    height: 200px;
-    background-color: #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 100%;
-    margin: auto;
-  }
-  
+.recent-projects,
+.your-work,
+.plot {
+  flex: 1;
+  margin: 0 10px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.recent-projects h2,
+.your-work h2,
+.plot h2 {
+  margin-top: 0;
+}
+
+.recent-projects ul,
+.task-overview ul,
+.upcoming-deadlines ul,
+.notifications ul {
+  list-style: none;
+  padding: 0;
+}
+
+.recent-projects li,
+.task-overview li,
+.upcoming-deadlines li,
+.notifications li {
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.recent-projects li:last-child,
+.task-overview li:last-child,
+.upcoming-deadlines li:last-child,
+.notifications li:last-child {
+  border-bottom: none;
+}
+
+.recent-projects li strong,
+.task-overview li strong,
+.upcoming-deadlines li strong {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.project-info,
+.task-info {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+  padding-left: 10px;
+  gap: 5px;
+}
+
+.project-detail {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.priority-high {
+  color: red;
+}
+
+.priority-medium {
+  color: orange;
+}
+
+.priority-low {
+  color: green;
+}
+
+.task-summary {
+  margin-bottom: 20px;
+}
+
+.analysis-plot h2,
+.progress-overview h3,
+.upcoming-deadlines h3,
+.notifications h3 {
+  margin-top: 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+}
+
+.pie-chart-placeholder {
+  width: 200px;
+  height: 200px;
+  background-color: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  margin: auto;
+}
+
+.analysis-plot,
+.progress-overview,
+.upcoming-deadlines,
+.notifications {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+}
+
+progress {
+  width: 100%;
+  height: 20px;
+  margin: 10px 0;
+}

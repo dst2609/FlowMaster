@@ -1,41 +1,62 @@
 .your-work-container {
-    flex: 1;
-    margin: 0 10px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .timeline, .personal-calendar {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .timeline-item {
-    background-color: #333;
-    color: white;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 4px;
-  }
-  
-  .calendar-placeholder {
-    width: 100%;
-    height: 200px;
-    background-color: #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-  }
-  
-  .title{
-    flex: 1;
-    display: flex;
-    font-size: x-large;
-    font-weight: bold;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.work-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.timeline {
+  flex: 1;
+}
+
+.timeline h3 {
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.personal-calendar {
+  flex: 1;
+}
+
+.personal-calendar h3 {
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.react-calendar {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.react-calendar__tile--active {
+  background: #ffc107 !important;
+  color: white !important;
+}
+
+.calendar-entry {
+  margin-top: 5px;
+  font-size: 10px;
+  text-align: center;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  padding: 2px 5px;
+}
